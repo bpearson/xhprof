@@ -42,7 +42,11 @@ require_once $GLOBALS['XHPROF_LIB_ROOT'].'/utils/xhprof_runs.php';
  * Our coding convention disallows relative paths in hrefs.
  * Get the base URL path from the SCRIPT_NAME.
  */
-$base_path = rtrim(dirname($_SERVER['SCRIPT_NAME']), '/\\');
+if (!isset($GLOBALS['base_path'])) {
+    $base_path = rtrim(dirname($_SERVER['SCRIPT_NAME']), "/");
+} else {
+    $base_path = $GLOBALS['base_path'];
+}
 
 
 /**

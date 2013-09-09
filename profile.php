@@ -1,39 +1,8 @@
 <?php
-//  Copyright (c) 2009 Facebook
-//
-//  Licensed under the Apache License, Version 2.0 (the "License");
-//  you may not use this file except in compliance with the License.
-//  You may obtain a copy of the License at
-//
-//      http://www.apache.org/licenses/LICENSE-2.0
-//
-//  Unless required by applicable law or agreed to in writing, software
-//  distributed under the License is distributed on an "AS IS" BASIS,
-//  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//  See the License for the specific language governing permissions and
-//  limitations under the License.
-//
 
-//
-// XHProf: A Hierarchical Profiler for PHP
-//
-// XHProf has two components:
-//
-//  * This module is the UI/reporting component, used
-//    for viewing results of XHProf runs from a browser.
-//
-//  * Data collection component: This is implemented
-//    as a PHP extension (XHProf).
-//
-//
-//
-// @author(s)  Kannan Muthukkaruppan
-//             Changhao Jiang
-//
-
-// by default assume that xhprof_html & xhprof_lib directories
-// are at the same level.
-$GLOBALS['XHPROF_LIB_ROOT'] = dirname(__FILE__) . '/../xhprof_lib';
+$GLOBALS['XHPROF_LIB_ROOT']  = dirname(__FILE__)."/xhprof_lib";
+$GLOBALS['XHPROF_HTML_ROOT'] = dirname(__FILE__)."/xhprof_html";
+$GLOBALS['base_path']        = rtrim(dirname($_SERVER['SCRIPT_NAME']), "/")."/xhprof_html";
 
 require_once $GLOBALS['XHPROF_LIB_ROOT'].'/display/xhprof.php';
 
@@ -68,21 +37,20 @@ foreach ($params as $k => $v) {
 echo "<html>";
 
 echo "<head><title>XHProf: Hierarchical Profiler Report</title>";
-xhprof_include_js_css();
+xhprof_include_js_css($GLOBALS['XHPROF_HTML_ROOT']);
 echo "</head>";
 
 echo "<body>";
 
-$vbar  = ' class="vbar"';
-$vwbar = ' class="vwbar"';
-$vwlbar = ' class="vwlbar"';
-$vbbar = ' class="vbbar"';
-$vrbar = ' class="vrbar"';
-$vgbar = ' class="vgbar"';
+$vbar    = ' class="vbar"';
+$vwbar   = ' class="vwbar"';
+$vwlbar  = ' class="vwlbar"';
+$vbbar   = ' class="vbbar"';
+$vrbar   = ' class="vrbar"';
+$vgbar   = ' class="vgbar"';
+$dataDir = dirname(__FILE__)."/data/profile/";
 
-$profileDir = dirname(dirname(__FILE__))."/data/profile";
-
-$xhprof_runs_impl = new XHProfRuns_Default($profileDir);
+$xhprof_runs_impl = new XHProfRuns_Default($dataDir);
 
 displayXHProfReport($xhprof_runs_impl, $params, $source, $run, $wts,
                     $symbol, $sort, $run1, $run2);
