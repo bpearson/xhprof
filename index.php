@@ -10,11 +10,15 @@ $profileDir = $dataDir."/profile";
 $dataFiles  = glob($dataDir."/*.data");
 $profileUrl = "xhprof_html/index.php";
 $prefix     = "profile";
+if (is_dir($profileDir) === FALSE) {
+    mkdir($profileDir, 0755, TRUE);
+}
+
 foreach ($dataFiles as $dataFile) {
     $xhprof_data  = file_get_contents($dataFile);
     $xhprof_data  = @unserialize($xhprof_data);
     $xhprof_runs  = new XHProfRuns_Default($profileDir);
-    $xhprof_runs->save_run($xhprof_data, $prefix);
+    $xhprof_runs->save_run($xhprof_data['runData'], $prefix);
     unlink($dataFile);
 }
 
