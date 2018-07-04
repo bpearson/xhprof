@@ -1,7 +1,14 @@
-For installation and usage notes refer to:
-   xhprof_html/docs/index.html
+Installation....
 
-To view the latest version of the doc, go to:
-  http://pecl.php.net/package/xhprof ---> [View Documentation]
+git clone https://github.com/tideways/php-xhprof-extension.git
+cd php-xhprof-extension
+yum install -yq php-devel gcc
+phpize
+./configure
+make
+cp modules/tideways_xhprof.so /var/www/libs/php/
 
+echo 'extension=tideways_xhprof.so' > /etc/php.d/50-tideways.ini
 
+systemctl restart php-fpm
+systemctl restart openresty

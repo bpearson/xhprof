@@ -3,6 +3,7 @@
 $XHPROF_ROOT = dirname(__FILE__);
 include_once $XHPROF_ROOT . "/xhprof_lib/utils/xhprof_lib.php";
 include_once $XHPROF_ROOT . "/xhprof_lib/utils/xhprof_runs.php";
+ini_set('error_log', __DIR__.'/error_log');
 
 $profileRun = array();
 $dataDir    = $XHPROF_ROOT."/data/";
